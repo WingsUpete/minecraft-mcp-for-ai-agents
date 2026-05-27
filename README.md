@@ -115,7 +115,7 @@ Append the following configurations to your MCP settings.
 }
 ```
 
-## Useful Auxilliary Web Services
+## Useful Auxiliary Web Services
 
 We support [Prismarine Viewer](https://github.com/PrismarineJS/prismarine-viewer) and [Mineflayer Web Inventory](https://github.com/imharvol/mineflayer-web-inventory) from two ports (default to `3000` and `4000`).
 
