@@ -1,11 +1,25 @@
-# Minecraft MCP server (`mcp/`)
+# Minecraft MCP Server for AI Agents
 
-This folder holds a **small Model Context Protocol (MCP) server** that exposes **Minecraft bot actions** as **tools**. Consider this as the body of the agent.
+This repository is a [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) server.
+It exposes Minecraft bot actions as MCP tools.
+Treat the server as the agent's **body**: it performs actions in the game.
+An MCP client that connects to it is usually part of a larger AI agent.
+That agent runs the loop and acts as the agent's **brain**, deciding which tools to call and when.
 
-## What belongs in this folder
+The architectural design (e.g., config template, tool registry) is inspired by the [minecraft-mcp-server](https://github.com/yuniko-software/minecraft-mcp-server) project.
+This repo redesigns the tools and adds several optimizations on top of Mineflayer.
 
-- **TypeScript + Node**: MCP tool definitions and the code that talks to **Mineflayer** (or wraps it).
-- **Narrow tool surface**: only the primitives needed for your cooking scenario (see table below).
+## Purpose
+
+This project is for agent developers who test agents in a Minecraft sandbox.
+The server provides many separate tools, not one bundled workflow.
+Each tool names a player-familiar activity, such as chat, movement, collecting a block, or crafting.
+A tool may chain several game steps when players treat them as one action.
+For example, `collect_block` pathfinds, mines, and picks up drops in a single call.
+Simpler tools such as `chat` and `position` do only one thing.
+
+The server stops at player-sized actions.
+It is the client's responsibility to pick a subset of tools and group them into **agent skills** for different tasks.
 
 ## Implemented tools
 
@@ -55,7 +69,6 @@ Besides tools (actions), the server exposes **resources** for read-only state th
 ## Build and run
 
 ```bash
-cd mcp
 # setup dependencies
 npm install
 # build the project
